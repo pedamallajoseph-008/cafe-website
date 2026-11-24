@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brew & Bloom Café</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf7f2;
+      --cream: #f5efe6;
+      --brown: #5c4033;
+      --brown-dark: #3d2b22;
+      --accent: #c47a4a;
+      --accent-soft: #e8c9a8;
+      --text: #2c2118;
+      --muted: #7a6a5a;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(92, 64, 51, 0.08);
+      --radius: 16px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 247, 242, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(92, 64, 51, 0.08);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--brown-dark);
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--brown); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--brown);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--brown-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--brown);
+      color: var(--brown);
+    }
+
+    .btn-outline:hover {
+      background: var(--brown);
+      color: var(--white);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 4.5rem 0 3.5rem;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--brown-dark);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+      color: var(--brown-dark);
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 420px;
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-visual {
+      background: linear-gradient(145deg, #e8d5c0, #d4b896);
+      border-radius: 24px;
+      height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-visual::before {
+      content: "☕";
+      font-size: 7rem;
+      opacity: 0.85;
+    }
+
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 70% 30%, rgba(255,255,255,0.35), transparent 55%);
+    }
+
+    /* Sections */
+    section {
+      padding: 4rem 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.8rem, 3vw, 2.3rem);
+      color: var(--brown-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* Menu */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .menu-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s;
+    }
+
+    .menu-card:hover { transform: translateY(-4px); }
+
+    .menu-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--cream);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .menu-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.4rem;
+      color: var(--brown-dark);
+    }
+
+    .menu-card p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .price {
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1.05rem;
+    }
+
+    /* Specials */
+    .specials {
+      background: var(--cream);
+      border-radius: 28px;
+      padding: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .specials-content h2 {
+      font-size: 1.9rem;
+      margin-bottom: 0.8rem;
+      color: var(--brown-dark);
+    }
+
+    .specials-content p {
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+
+    .special-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tag {
+      background: var(--white);
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--brown);
+    }
+
+    .specials-visual {
+      background: linear-gradient(135deg, #c47a4a, #a05a32);
+      border-radius: 20px;
+      height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 4.5rem;
+    }
+
+    /* Reviews */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .review-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      box-shadow: var(--shadow);
+    }
+
+    .stars {
+      color: #e8a84a;
+      margin-bottom: 0.7rem;
+      font-size: 0.95rem;
+    }
+
+    .review-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .reviewer {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--brown-dark);
+    }
+
+    /* Hours & Location */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .info-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .info-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--brown-dark);
+    }
+
+    .hours-list {
+      list-style: none;
+    }
+
+    .hours-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid rgba(92,64,51,0.08);
+      font-size: 0.95rem;
+    }
+
+    .hours-list li:last-child { border-bottom: none; }
+
+    .hours-list span:last-child {
+      color: var(--muted);
+    }
+
+    .location p {
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .map-placeholder {
+      margin-top: 1.2rem;
+      height: 140px;
+      background: linear-gradient(135deg, #d4c4b0, #c4b09a);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--brown-dark);
+      font-weight: 500;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--brown-dark);
+      color: #e8d9c8;
+      padding: 2.5rem 0 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      color: #cbb8a4;
+      font-size: 0.9rem;
+    }
+
+    .footer-links a:hover { color: white; }
+
+    .copyright {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #a8907a;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1.2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 3rem;
+      }
+      .hero p { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-visual { height: 280px; }
+      .specials { grid-template-columns: 1fr; }
+      .info-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 500px) {
+      .hero h1 { font-size: 2.1rem; }
+      .specials { padding: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo">Brew <span>&</span> Bloom</a>
+      <ul class="nav-links">
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#specials">Specials</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#visit">Visit</a></li>
+      </ul>
+      <a href="#visit" class="btn btn-primary">Visit Us</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div>
+        <span class="hero-badge">Artisan Coffee & Fresh Pastries</span>
+        <h1>Where every cup feels like home</h1>
+        <p>Handcrafted coffee, seasonal treats, and a warm corner to slow down. Open daily in the heart of the city.</p>
+        <div class="hero-actions">
+          <a href="#menu" class="btn btn-primary">View Menu</a>
+          <a href="#visit" class="btn btn-outline">Find Us</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true"></div>
+    </section>
+
+    <section id="menu">
+      <div class="container">
+        <div class="section-header">
+          <h2>Our Menu</h2>
+          <p>Freshly roasted beans and house-made pastries, crafted with care every morning.</p>
+        </div>
+        <div class="menu-grid">
+          <article class="menu-card">
+            <div class="menu-icon">☕</div>
+            <h3>Signature Latte</h3>
+            <p>Double espresso, steamed milk, and a hint of vanilla.</p>
+            <div class="price">$4.50</div>
+          </article>
+          <article class="menu-card">
+            <div class="menu-icon">🌿</div>
+            <h3>Matcha Cortado</h3>
+            <p>Ceremonial matcha with silky microfoam.</p>
+            <div class="price">$5.20</div>
+          </article>
+          <article class="menu-card">
+            <div class="menu-icon">🥐</div>
+            <h3>Butter Croissant</h3>
+            <p>Flaky, golden, and baked fresh before sunrise.</p>
+            <div class="price">$3.80</div>
+          </article>
+          <article class="menu-card">
+            <div class="menu-icon">🍫</div>
+            <h3>Chocolate Mocha</h3>
+            <p>Rich dark chocolate meets bold espresso.</p>
+            <div class="price">$5.00</div>
+          </article>
+          <article class="menu-card">
+            <div class="menu-icon">🫐</div>
+            <h3>Berry Scone</h3>
+            <p>Buttery scone with seasonal berries and glaze.</p>
+            <div class="price">$4.20</div>
+          </article>
+          <article class="menu-card">
+            <div class="menu-icon">🧊</div>
+            <h3>Cold Brew</h3>
+            <p>Slow-steeped for 18 hours. Smooth and bold.</p>
+            <div class="price">$4.80</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="specials">
+      <div class="container">
+        <div class="specials">
+          <div class="specials-content">
+            <h2>This Week’s Specials</h2>
+            <p>Limited-time flavors and seasonal treats available while they last.</p>
+            <div class="special-tags">
+              <span class="tag">Pumpkin Spice Latte</span>
+              <span class="tag">Hazelnut Affogato</span>
+              <span class="tag">Maple Pecan Tart</span>
+            </div>
+            <a href="#visit" class="btn btn-primary">Order at the counter</a>
+          </div>
+          <div class="specials-visual" aria-hidden="true">🍂</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews">
+      <div class="container">
+        <div class="section-header">
+          <h2>What people say</h2>
+          <p>Real words from our regulars and first-time visitors.</p>
+        </div>
+        <div class="reviews-grid">
+          <article class="review-card">
+            <div class="stars">★★★★★</div>
+            <p>“The best latte in town. Cozy atmosphere and the staff always remembers my order.”</p>
+            <div class="reviewer">— Priya S.</div>
+          </article>
+          <article class="review-card">
+            <div class="stars">★★★★★</div>
+            <p>“Came for coffee, stayed for the pastries. The berry scone is unreal.”</p>
+            <div class="reviewer">— Marcus T.</div>
+          </article>
+          <article class="review-card">
+            <div class="stars">★★★★☆</div>
+            <p>“Perfect spot to work or meet friends. Quiet corners and great Wi-Fi.”</p>
+            <div class="reviewer">— Ananya R.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="visit">
+      <div class="container">
+        <div class="section-header">
+          <h2>Visit us</h2>
+          <p>We’d love to pour you a cup. Here’s when and where to find us.</p>
+        </div>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>Opening Hours</h3>
+            <ul class="hours-list">
+              <li><span>Monday – Friday</span><span>7:00 AM – 8:00 PM</span></li>
+              <li><span>Saturday</span><span>8:00 AM – 9:00 PM</span></li>
+              <li><span>Sunday</span><span>8:00 AM – 6:00 PM</span></li>
+            </ul>
+          </div>
+          <div class="info-card location">
+            <h3>Location</h3>
+            <p>42 Maple Lane, Downtown</p>
+            <p>Near Central Park • Free street parking nearby</p>
+            <p>Phone: (555) 234-7890</p>
+            <div class="map-placeholder">📍 Maple Lane</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">Brew & Bloom</div>
+        <div class="footer-links">
+          <a href="#menu">Menu</a>
+          <a href="#specials">Specials</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#visit">Visit</a>
+        </div>
+      </div>
+      <div class="copyright">© 2026 Brew & Bloom Café. All rights reserved.</div>
+    </div>
+  </footer>
+</body>
+</html>
